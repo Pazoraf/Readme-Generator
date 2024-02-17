@@ -15,11 +15,7 @@ const questions = [
         name: 'descriptionQ',
         message: 'Please enter a description'
     },
-    {
-        type: 'input',
-        name: 'tocQ',
-        message: 'Please enter your table of contents'
-    },
+
     {
         type: 'input',
         name: 'installationQ',
@@ -31,9 +27,10 @@ const questions = [
         message: 'Please enter some usage instructions'
     },
     {
-        type: 'input',
+        type: 'checkbox',
         name: 'licenseQ',
-        message: 'Please enter some license information'
+        message: 'Please choose your license',
+        choices: ['MIT', 'The Unlicense']
     },
     {
         type: 'input',
@@ -47,9 +44,19 @@ const questions = [
     },
     {
         type: 'input',
-        name: 'questionQ',
-        message: 'Please enter some question information'
+        name: 'githubQ',
+        message: 'Please enter your github username'
     },
+    {
+        type: 'input',
+        name: 'emailQ',
+        message: 'Please enter your email address'
+    },
+    {
+        type: 'input',
+        name: 'fullNameQ',
+        message: 'Please enter your full name'
+    }
 ];
 
 // function to write README file
@@ -58,14 +65,73 @@ function writeToFile(fileName, data) {
     err ? console.log(err) : console.log('Success!'))
 }
 
+
 // function to initialize program
 function init() {
     inquirer
     .prompt(questions)
     .then((answers) => {
         console.log(answers)
-        const { titleQ, descriptionQ, tocQ, installationQ, usageQ, licenseQ, contributingQ, testsQ, questionQ } = answers
-        const potentialFile = `# ${titleQ}\n\n## Description:\n\n${descriptionQ}\n\n## Table of Contents:\n\n${tocQ}\n\n## Installation Instructions:\n\n${installationQ}\n\n## Usage Instructions:\n\n${usageQ}\n## License:\n\n${licenseQ}\n\n## Contributing:\n\n${contributingQ}\n\n## Tests:\n\n${testsQ}\n\n## Questions:\n\n${questionQ}`
+        const { titleQ, descriptionQ, installationQ, usageQ, licenseQ, contributingQ, testsQ, githubQ, emailQ, fullNameQ } = answers
+        let licenseBadge;
+        let licenseContent;
+        switch (licenseQ[0]) {
+            case "MIT":
+                licenseBadge = "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)"
+                licenseContent = `
+                MIT License
+
+                Copyright (c) 2024 ${fullNameQ}
+                
+                Permission is hereby granted, free of charge, to any person obtaining a copy
+                of this software and associated documentation files (the "Software"), to deal
+                in the Software without restriction, including without limitation the rights
+                to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+                copies of the Software, and to permit persons to whom the Software is
+                furnished to do so, subject to the following conditions:
+                
+                The above copyright notice and this permission notice shall be included in all
+                copies or substantial portions of the Software.
+                
+                THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+                AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+                SOFTWARE.`
+                break;
+            case "The Unlicense":
+                licenseBadge = `[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)`;
+                licenseContent = `
+                This is free and unencumbered software released into the public domain.
+
+                Anyone is free to copy, modify, publish, use, compile, sell, or
+                distribute this software, either in source code form or as a compiled
+                binary, for any purpose, commercial or non-commercial, and by any
+                means.
+                
+                In jurisdictions that recognize copyright laws, the author or authors
+                of this software dedicate any and all copyright interest in the
+                software to the public domain. We make this dedication for the benefit
+                of the public at large and to the detriment of our heirs and
+                successors. We intend this dedication to be an overt act of
+                relinquishment in perpetuity of all present and future rights to this
+                software under copyright law.
+                
+                THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+                EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+                MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+                IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+                OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+                ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+                OTHER DEALINGS IN THE SOFTWARE.
+                
+                For more information, please refer to <https://unlicense.org>`
+                break;
+
+        }
+        const potentialFile = `${licenseBadge}\n\n# ${titleQ}\n\n## Description:\n\n${descriptionQ}\n\n## Table of Contents:\n\n\n\n## Installation Instructions:\n\n${installationQ}\n\n## Usage Instructions:\n\n${usageQ}\n## License:\n\n${licenseContent}\n\n## Contributing:\n\n${contributingQ}\n\n## Tests:\n\n${testsQ}\n\n## Questions:\n\n`
         console.log(potentialFile)
         writeToFile("READMEEXAMPLE.md", potentialFile)
     })

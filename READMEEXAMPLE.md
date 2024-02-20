@@ -1,10 +1,10 @@
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
-# a
+# Project title example
 
 ## Description: 
 
-b
+Description example
 
 ## Table of Contents:
 
@@ -24,11 +24,11 @@ b
 
 ## Installation Instructions:
 
-c
+Installation example
 
 ## Usage Instructions:
 
-d
+Usage example
 
 ## License:
 
@@ -51,11 +51,11 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 ## Contributing:
 
-a
+Contributers example
 
 ## Tests:
 
-b
+Tests example
 
 ## Questions:
 
@@ -63,5 +63,5 @@ Please forward any questions to Github or to email.
 
 - [Github](https://github.com/Pazoraf)
 
-- [Email](mailto:a)
+- [Email](mailto:alexander.flaherty@hotmail.com)
 

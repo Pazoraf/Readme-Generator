@@ -54,6 +54,7 @@ The application utilises Node.js along with the inquirer package.
 
 Video demonstration:
 
+https://github.com/Pazoraf/Readme-generator/assets/151764762/f7ae81e0-2b9c-4597-ac8d-534a8bc26bb6
 
 ## Credits
 
